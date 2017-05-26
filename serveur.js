@@ -32,9 +32,15 @@ app.get('/', (request, response) => {
 app.post('/', (request, response) => {
     if (request.body.message === undefined || request.body.message === '') {
         request.flash('error', "tu n'as rien posté");
-        response.redirect('/');
+    }
+    else {
+      var Message = require('./models/comments');
+      Message.create(request.body.message, function () {
+        request.flash('success', "Merci :)");
+      });
     }
     console.log(request.body.message);
+    response.redirect('/');
 });
 
 app.listen(8080);
