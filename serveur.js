@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var Message = require('../models/message.js');
 
 //Moteur de template
 app.set('view engine', 'ejs');
@@ -34,7 +35,7 @@ app.post('/', (request, response) => {
         request.flash('error', "tu n'as rien posté");
     }
     else {
-      var Message = require('./models/comments');
+      var Message = require('../models/message');
       Message.create(request.body.message, function () {
         request.flash('success', "Merci :)");
       });
